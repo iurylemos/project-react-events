@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './login.css'
-import firebase from '../../config/firebase'
+import './login.css';
+import firebase from '../../config/firebase';
 
 //authentication
-import 'firebase/auth'
+import 'firebase/auth';
 
 function Login() {
 
@@ -15,14 +15,17 @@ function Login() {
 
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
+    const [msgTipo, setMsgTipo] = useState();
 
     function logar() {
         // alert('VAMOS LOGAR')
         firebase.auth().signInWithEmailAndPassword(email, senha).then((resultado) => {
-            alert('USUÁRIO LOGADO')
+            setMsgTipo('sucesso')
+            // alert('USUÁRIO LOGADO')
         }).catch(error => {
+            setMsgTipo('error')
             console.log(error)
-            alert(error)
+            // alert(error)
         })
     }
 
@@ -39,18 +42,15 @@ function Login() {
                 <button className="btn btn-lg btn-block btn-login" type="button" onClick={logar}>Logar</button>
 
                 <div className="msg-login text-white text-center mt-2">
-                    <span>
-                        <strong>WOW!</strong> Você está conectado! &#128526;
-                    </span>
-                    <span>
-                        <strong>OPS!</strong> Verifique se a senha ou usuário estão corretos! &#128527;
-                    </span>
+                    {/* UTILIZANDO O IF TERNÁRIO, SE A MSG FOR SUCESSO && QUE SIGNIFICA ENTÃO */}
+                    {msgTipo === 'sucesso' && <span role="img" aria-label="sheep"><strong>WOW!</strong> Você está conectado! &#128526;</span>}
+                    {msgTipo === 'error' && <span role="img" aria-label="sheep"><strong>OPS!</strong> Verifique se a senha ou usuário estão corretos! &#128527;</span> }
                 </div>
 
                 <div className="opcoes-login mt-5 text-center">
-                    <a href="#" className="mx-2">Recuperar senha</a>
+                    <a href="/#" className="mx-2">Recuperar senha</a>
                     <span className="text-white">&#9733;</span>
-                    <a href="#" className="mx-2">Quero me Cadastrar</a>
+                    <a href="/#" className="mx-2">Quero me Cadastrar</a>
                 </div>
             </form>
         </div>
