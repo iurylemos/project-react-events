@@ -34,7 +34,7 @@ function Login() {
         <div className="login-content d-flex align-items-center">
             <form className="form-signin mx-auto">
                 <img className="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
-                <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold text-center">LOGIN</h1>
+                <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold text-center">Login</h1>
                 <label className="sr-only">Email address</label>
                 <input onChange={(e) => setEmail(e.target.value)} type="email" id="inputEmail" className="form-control my-2" placeholder="Email" />
                 <label className="sr-only">Password</label>
