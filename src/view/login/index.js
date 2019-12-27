@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './login.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import firebase from '../../config/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+
+//useSelect é utilizado para amarzenar o estado lá no store
+//useDispath é utilizado para enviar solicitações
+
 
 //authentication
 import 'firebase/auth';
@@ -18,21 +23,42 @@ function Login() {
     const [senha, setSenha] = useState();
     const [msgTipo, setMsgTipo] = useState();
 
+    //useDispath é utilizado para enviar solicitações
+    const dispatch = useDispatch();
+
     function logar() {
         // alert('VAMOS LOGAR')
         firebase.auth().signInWithEmailAndPassword(email, senha).then((resultado) => {
             setMsgTipo('sucesso')
+
+            setTimeout(() => {
+                dispatch({type: 'LOG_IN', usuarioEmail: email})
+            }, 2000);
             // alert('USUÁRIO LOGADO')
         }).catch(error => {
             setMsgTipo('error')
             console.log(error)
             // alert(error)
         })
+
+        
     }
+
+    //Vou verificar se o usuário está logado ou não
+    //Ou seja vou verificar se o que está gravado no estado
+    //De fato se o usuário está logado ou não
+    // alert(useSelector(state => state.usuarioEmail))
 
 
     return (
         <div className="login-content d-flex align-items-center">
+
+            {/* Vou utilizar aqui o redirect, se o usuário estiver logado */}
+            {
+                useSelector(state => state.usuarioLogado) > 0 ? <Redirect to=""></Redirect> : null
+            }
+
+
             <form className="form-signin mx-auto">
                 <img className="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
                 <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold text-center">Login</h1>
