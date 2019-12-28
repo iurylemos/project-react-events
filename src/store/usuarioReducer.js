@@ -9,7 +9,7 @@ function usuarioReducer(state = INITIAL_STATE, action) {
         //Se o tipo for login, ele vai me retornar o estado atual  
         case 'LOG_IN':
             return { ...state, usuarioLogado: 1, usuarioEmail: action.usuarioEmail }
-        case 'LOG OUT':
+        case 'LOG_OUT':
             return { ...state, usuarioLogado: 0, usuarioEmail: null }
         default: 
             return state;

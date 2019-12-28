@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './home.css';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 //Componentes
 import NavBar from '../../components/navbar';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Home() {
     return (
