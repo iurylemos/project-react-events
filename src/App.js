@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import Login from './view/login';
 import Cadastro from './view/cadastro';
 import Home from './view/home';
+import RecuperarSenha from './view/recuperar-senha';
 
 //Reducer
 import store from '../src/store';
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" component={Home}></Route>
         <Route exact path="/cadastro" component={Cadastro}></Route>
         <Route exact path="/login" component={Login}></Route>
+        <Route exact path="/recuperar-senha" component={RecuperarSenha}></Route>
       </Router>
     </Provider>
   );

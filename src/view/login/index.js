@@ -60,7 +60,7 @@ function Login() {
 
 
             <form className="form-signin mx-auto">
-                <img className="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
+                <i class="fas fa-grin-squint-tears text-center text-white fa-7x"></i>
                 <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold text-center">Login</h1>
                 <label className="sr-only">Email address</label>
                 <input onChange={(e) => setEmail(e.target.value)} type="email" id="inputEmail" className="form-control my-2" placeholder="Email" />
@@ -75,7 +75,7 @@ function Login() {
                 </div>
 
                 <div className="opcoes-login mt-5 text-center">
-                    <a href="/#" className="mx-2">Recuperar senha</a>
+                    <Link to="recuperar-senha" className="mx-2">Recuperar senha</Link>
                     <span className="text-white">&#9733;</span>
                     <Link to="cadastro" className="mx-2">Quero me Cadastrar</Link>
                 </div>
