@@ -16,7 +16,7 @@ function EventoCard({ id, img, titulo, detalhes, visualizacoes }) {
     firebase.storage().ref(`imagens/${img}`).getDownloadURL().then((url) => {
       setUrlImagem(url)
     })
-  }, [urlImagem])
+  }, [img])
 
   //Recuperando as informações do input
 
