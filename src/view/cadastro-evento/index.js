@@ -16,6 +16,7 @@ function CadastroEvento() {
     const [data, setData] = useState();
     const [hora, setHora] = useState();
     const [foto, setFoto] = useState();
+    const [carregando, setCarregando] = useState();
 
     //criando duas variaveis
     const storage = firebase.storage()
@@ -27,6 +28,7 @@ function CadastroEvento() {
 
     function cadastrarEvento() {
 
+        setCarregando(1)
         setMsgTipo(null)
 
         storage.ref(`imagens/${foto.name}`).put(foto).then((resultado) => {
@@ -42,8 +44,10 @@ function CadastroEvento() {
                 publico: 1,
                 criacao: new Date()
             }).then((res) => {
+                setCarregando(0)
                 setMsgTipo('sucesso')
             }).catch((err) => {
+                setCarregando(0)
                 setMsgTipo('error')
             })
         })
@@ -91,9 +95,14 @@ function CadastroEvento() {
                         <input onChange={(e) => setFoto(e.target.files[0])}  type="file" className="form-control"></input>
                     </div>
 
-                    <button onClick={cadastrarEvento} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro">
-                        Publicar Evento
-                    </button>
+                    {/* SE A VARIAVEL CARREGANDO FOR VERDADEIRO QUE É O 1, ELE EXIBE O spinner
+                    SE NÃO EXIBE O BOTÃO */}
+                    {
+                        carregando ? <div class="spinner-border text-dark mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+                        : <button onClick={cadastrarEvento} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro">Publicar Evento</button>
+                    }
+
+                    
 
                 </form>
 
