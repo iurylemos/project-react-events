@@ -7,6 +7,8 @@ import './home.css';
 import NavBar from '../../components/navbar';
 import { useSelector } from 'react-redux';
 
+import EventoCard from '../../components/evento-card'
+
 function Home() {
     return (
 
@@ -18,6 +20,8 @@ function Home() {
             <NavBar></NavBar>
             <h1>{useSelector(state => state.usuarioEmail)}</h1>
             <h1>Logado: {useSelector(state => state.usuarioLogado)}</h1>
+
+            <EventoCard></EventoCard>
         </>
 
     )

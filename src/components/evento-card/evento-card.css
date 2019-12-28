@@ -1,0 +1,26 @@
+.rodape-card {
+  color: #614ea6;
+  height: 35px;
+}
+
+.btn-detalhes {
+  background-color: #614ea6;
+  color: #ffff;
+}
+
+.btn-detalhes:hover {
+  background-color: #F21667;
+  color: #ffff;
+}
+
+/* //Overflow hidden bota as coisas no seu devido lugar */
+.card-text {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+/* Com isso eu defino o maximo de altura e largura */
+.img-cartao {
+  max-height: 200px;
+  min-width: 100%;
+}
