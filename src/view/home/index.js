@@ -8,7 +8,7 @@ import './home.css';
 // import { Link } from 'react-router-dom';
 //Componentes
 import NavBar from '../../components/navbar';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import firebase from '../../config/firebase'
 import EventoCard from '../../components/evento-card'
 
@@ -47,13 +47,15 @@ function Home() {
         //Ela apenas encapsula todos os elementos, para devolver no visual apenas 1
         <>
             <NavBar></NavBar>
-            <h1>{useSelector(state => state.usuarioEmail)}</h1>
-            <h1>Logado: {useSelector(state => state.usuarioLogado)}</h1>
+            {/* <h1>{useSelector(state => state.usuarioEmail)}</h1>
+            <h1>Logado: {useSelector(state => state.usuarioLogado)}</h1> */}
 
-            <div className="row">
+            <div className="row p-3">
                 {
                     //Aqui é um tipo de for com o map
-                    eventos.map(item => <EventoCard key={item.id} img={item.foto} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes} ></EventoCard>)
+                    eventos.map(item =>
+                        <EventoCard key={item.id} id={item.id} img={item.foto} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes} ></EventoCard>
+                    )
                 }
             </div>
 

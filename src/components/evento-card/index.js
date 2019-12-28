@@ -3,7 +3,7 @@ import './evento-card.css';
 import { Link } from 'react-router-dom';
 import firebase from '../../config/firebase';
 
-function EventoCard({ key, img, titulo, detalhes, visualizacoes }) {
+function EventoCard({ id, img, titulo, detalhes, visualizacoes }) {
 
   const [urlImagem, setUrlImagem] = useState()
 
@@ -27,11 +27,11 @@ function EventoCard({ key, img, titulo, detalhes, visualizacoes }) {
 
         <div className="row rodape-card d-flex align-items-center">
           <div className="col-6 text-left">
-            <Link to="/" className="btn btn-sm btn-detalhes">+ detalhes</Link>
+            <Link to={"/detalhes-evento/" + id} className="btn btn-sm btn-detalhes">+ detalhes</Link>
           </div>
 
           <div className="col-6 text-right">
-            <i className="fas fa-eye"></i><span>{visualizacoes}</span>
+            <i className="fas fa-eye mr-2"></i><span>{visualizacoes}</span>
           </div>
         </div>
 
