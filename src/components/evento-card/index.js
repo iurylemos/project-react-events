@@ -7,11 +7,16 @@ function EventoCard({ id, img, titulo, detalhes, visualizacoes }) {
 
   const [urlImagem, setUrlImagem] = useState()
 
+  //O useEffect por padrão é convocado quando o cartão é convocado uma vez
+  //mas eu vou lá no fechamento dele, e coloco um parãmetro de array
+  //Que é o [], e coloco a constante URLIMAGEM
+  //E ele vai entender o seguinte, toda vez que essa constante URLIMAGEM mudar
+  //ele renderiza a imagem novamente
   useEffect(() => {
     firebase.storage().ref(`imagens/${img}`).getDownloadURL().then((url) => {
       setUrlImagem(url)
     })
-  })
+  }, [urlImagem])
 
   //Recuperando as informações do input
 

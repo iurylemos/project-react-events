@@ -18,6 +18,7 @@ function Home() {
     //Variavel para os eventos
     //E assim estou dizendo que os eventos são um array
     const [eventos, setEventos] = useState([]);
+    const [pesquisa, setPesquisa] = useState('');
     let listaEventos = [];
 
     useEffect(() => {
@@ -27,12 +28,18 @@ function Home() {
                 //E dentro do id eu possuo os dados
                 //eu utilizo o operador de SPRAD ...
                 //E ele pega tudo que tem dentro desse id.
-                //
 
-                listaEventos.push({
-                    id: doc.id,
-                    ...doc.data()
-                })
+                //Verificando se o documento titulo
+                //tiver em algum caractere da pesquisa
+                //Index of ele pesquisa se o que estou pesquisando
+                //Existe nos documentos
+
+                if (doc.data().titulo.indexOf(pesquisa) >= 0) {
+                    listaEventos.push({
+                        id: doc.id,
+                        ...doc.data()
+                    })
+                }
             })
             setEventos(listaEventos);
         })
@@ -49,6 +56,10 @@ function Home() {
             <NavBar></NavBar>
             {/* <h1>{useSelector(state => state.usuarioEmail)}</h1>
             <h1>Logado: {useSelector(state => state.usuarioLogado)}</h1> */}
+
+            <div className="row p-5">
+                <input onChange={(e) => setPesquisa(e.target.value)} type="text" className="form-control text-center" placeholder="Pesquisar evento pelo título..."></input>
+            </div>
 
             <div className="row p-3">
                 {
