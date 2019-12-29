@@ -1,7 +1,18 @@
 import { createStore } from 'redux';
-
 import usuarioReducer from './usuarioReducer'
+import { persistReducer, persistStore } from 'redux-persist';
 
-const store = createStore(usuarioReducer);
+//Importação que nós vamos amazenar o estado do usuário no navegador
+import storage from 'redux-persist/lib/storage';
 
-export default store;
+const persistConfig = {
+  key: 'siteeventos',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, usuarioReducer)
+
+const store = createStore(persistedReducer);
+const persistor = persistStore(store)
+
+export { store, persistor }
