@@ -35,7 +35,7 @@ function DetalhesEvento(props) {
         setCarregando(0)
       })
     })
-  }, [evento.foto, props.match.params.id])
+  }, [evento, props.match.params.id])
 
   return (
     <>
