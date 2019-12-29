@@ -24,18 +24,33 @@ function DetalhesEvento(props) {
   //e através dessa rota eu faço uma consulta no banco de dados
 
 
+  //UseEffect é um gatilho para toda vez que algum elemento,
+  //Tem o seu conteudo alterado
 
   useEffect(() => {
-    firebase.firestore().collection('eventos').doc(props.match.params.id).get().then((res) => {
-      setEvento(res.data())
 
-      console.log(evento)
-      firebase.storage().ref(`imagens/${evento.foto}`).getDownloadURL().then((url) => {
-        setUrlImg(url)
-        setCarregando(0)
+    if (carregando) {
+      firebase.firestore().collection('eventos').doc(props.match.params.id).get().then((res) => {
+        setEvento(res.data())
+        //Implementando a quantidade de visualizações 
+        //E atualizando de acordo com o banco
+        //E incremento no campo de visualizações + 1
+        // E todas as vezes que ele entrar aqui vai ser incrementado no campo 
+        //De visualizações
+        firebase.firestore().collection('eventos').doc(props.match.params.id).update('visualizacoes', res.data().visualizacoes + 1)
+
+        console.log(evento)
+        firebase.storage().ref(`imagens/${res.data().foto}`).getDownloadURL().then((url) => {
+          setUrlImg(url)
+          setCarregando(0)
+        })
       })
-    })
-  }, [evento, props.match.params.id])
+    } else {
+      firebase.storage().ref(`imagens/${evento.foto}`).getDownloadURL().then(url => setUrlImg(url))
+    }
+
+
+  }, [])
 
   return (
     <>
@@ -49,7 +64,7 @@ function DetalhesEvento(props) {
 
           carregando > 0 ?
             <div className="row">
-              <div class="spinner-border text-dark mx-auto mt-5" role="status"><span class="sr-only">Loading...</span></div>
+              <div className="spinner-border text-dark mx-auto mt-5" role="status"><span className="sr-only">Loading...</span></div>
             </div>
             :
             <div>
@@ -57,7 +72,7 @@ function DetalhesEvento(props) {
                 <img src={urlImg} alt="Banner" className="img-banner"></img>
               </div>
               <div className="col-12 text-right mt-1 visualizacoes">
-                <i className="fas fa-eye mr-2"></i><span>{evento.visualizacoes}</span>
+                <i className="fas fa-eye mr-2"></i><span>{evento.visualizacoes + 1}</span>
               </div>
               <h3 className="mx-auto mt-5 titulo"><strong>{evento.titulo}</strong></h3>
               <div className="row mt-5 d-flex justify-content-around">
