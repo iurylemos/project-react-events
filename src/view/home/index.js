@@ -83,7 +83,7 @@ function Home({ match }) {
                 setEventos(listaEventos);
             })
         }
-    })
+    }, [])
 
 
 

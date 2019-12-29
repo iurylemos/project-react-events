@@ -108,7 +108,7 @@ function DetalhesEvento(props) {
                 //O usuário que está logado é o mesmo que publicou esse evento?
                 //Se for igual é por que ele pode editar, se não mostra vázio
                 usuarioLogado === evento.usuario ?
-                  <Link to="" className="btn-editar"><i className="fas fa-pen-square fa-3x"></i></Link>
+                  <Link to={`/editar-evento/${props.match.params.id}`} className="btn-editar"><i className="fas fa-pen-square fa-3x"></i></Link>
                   : ''
               }
             </div>
