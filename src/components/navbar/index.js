@@ -14,31 +14,31 @@ function NavBar() {
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i className="fas fa-bars text-white"></i>
             </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active"><Link className="nav-link" to="">Home</Link></li>
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item active"><Link className="nav-link" to="">Home</Link></li>
 
-                        {/* Se o usuário estiver logado ele mostra os dados de sair, publicar e etc
+                    {/* Se o usuário estiver logado ele mostra os dados de sair, publicar e etc
                         Se não ele mostra o cadastrar e login  */}
 
-                        {
-                            useSelector(state => state.usuarioLogado) > 0 ?
+                    {
+                        useSelector(state => state.usuarioLogado) > 0 ?
                             <>
-                                <li className="nav-item active"><Link className="nav-link" to="cadastro-evento">Publicar Evento</Link></li>
-                                <li className="nav-item active"><Link className="nav-link" to="">Meus eventos</Link></li>
-                                <li className="nav-item active"><Link className="nav-link" onClick={() => dispatch({type: 'LOG_OUT'})}>Sair</Link></li>
+                                <li className="nav-item active"><Link className="nav-link" to="/cadastro-evento">Publicar Evento</Link></li>
+                                <li className="nav-item active"><Link className="nav-link" to="/eventos/meus">Meus eventos</Link></li>
+                                <li className="nav-item active"><Link className="nav-link" to="/login" onClick={() => dispatch({ type: 'LOG_OUT' })}>Sair</Link></li>
                             </>
 
                             :
                             <>
-                                <li className="nav-item active"><Link className="nav-link" to="cadastro">Cadastrar</Link></li>
-                                <li className="nav-item active"><Link className="nav-link" to="login">Login</Link></li>
+                                <li className="nav-item active"><Link className="nav-link" to="/cadastro">Cadastrar</Link></li>
+                                <li className="nav-item active"><Link className="nav-link" to="/login">Login</Link></li>
                             </>
-                            
-                        }
 
-                    </ul>
-                </div>
+                    }
+
+                </ul>
+            </div>
         </nav>
     )
 }

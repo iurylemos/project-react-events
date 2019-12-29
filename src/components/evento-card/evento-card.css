@@ -21,6 +21,7 @@
 
 /* Com isso eu defino o maximo de altura e largura */
 .img-cartao {
+  max-height: 100px;
   max-height: 200px;
   min-width: 100%;
 }

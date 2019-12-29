@@ -32,7 +32,7 @@ function Login() {
             setMsgTipo('sucesso')
 
             setTimeout(() => {
-                dispatch({type: 'LOG_IN', usuarioEmail: email})
+                dispatch({ type: 'LOG_IN', usuarioEmail: email })
             }, 2000);
             // alert('USUÁRIO LOGADO')
         }).catch(error => {
@@ -41,7 +41,7 @@ function Login() {
             // alert(error)
         })
 
-        
+
     }
 
     //Vou verificar se o usuário está logado ou não
@@ -60,7 +60,7 @@ function Login() {
 
 
             <form className="form-signin mx-auto">
-                <i class="fas fa-grin-squint-tears text-center text-white fa-7x"></i>
+                <i className="fas fa-grin-squint-tears text-center text-white fa-7x"></i>
                 <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold text-center">Login</h1>
                 <label className="sr-only">Email address</label>
                 <input onChange={(e) => setEmail(e.target.value)} type="email" id="inputEmail" className="form-control my-2" placeholder="Email" />
@@ -71,7 +71,7 @@ function Login() {
                 <div className="msg-login text-white text-center mt-2">
                     {/* UTILIZANDO O IF TERNÁRIO, SE A MSG FOR SUCESSO && QUE SIGNIFICA ENTÃO */}
                     {msgTipo === 'sucesso' && <span role="img" aria-label="sheep"><strong>WOW!</strong> Você está conectado! &#128526;</span>}
-                    {msgTipo === 'error' && <span role="img" aria-label="sheep"><strong>OPS!</strong> Verifique se a senha ou usuário estão corretos! &#128527;</span> }
+                    {msgTipo === 'error' && <span role="img" aria-label="sheep"><strong>OPS!</strong> Verifique se a senha ou usuário estão corretos! &#128527;</span>}
                 </div>
 
                 <div className="opcoes-login mt-5 text-center">
