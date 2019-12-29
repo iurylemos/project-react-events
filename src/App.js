@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/recuperar-senha" component={RecuperarSenha}></Route>
         <Route exact path="/cadastro-evento" component={CadastroEvento}></Route>
-        <Route exact path="/detalhes-evento" component={DetalhesEvento}></Route>
+        <Route path="/detalhes-evento/:id" component={DetalhesEvento}></Route>
       </Router>
     </Provider>
   );

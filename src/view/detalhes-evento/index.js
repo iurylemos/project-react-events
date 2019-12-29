@@ -1,47 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './detalhes-evento.css';
 import { Link } from 'react-router-dom';
-import firebase from '../../config/firebase';
 import NavBar from '../../components/navbar';
+import firebase from '../../config/firebase';
+import { useSelector } from 'react-redux';
 
 
-function DetalhesEvento() {
+function DetalhesEvento(props) {
+
+  const [evento, setEvento] = useState({});
+  const [urlImg, setUrlImg] = useState({});
+  const usuarioLogado = useSelector(state => state.usuarioEmail);
+
+  console.log(usuarioLogado)
+
+  //Vou utilizar o userEffect para toda as vezes que carregar essa página, 
+  //ele ir lá no firebase
+  //E carregar as informações em tela.
+
+  //Vou utilizar o props aqui, para recuperar esse id
+  //Através da variavel pros que amazena os dados da rota
+  //e através dessa rota eu faço uma consulta no banco de dados
+
+
+
+  useEffect(() => {
+    firebase.firestore().collection('eventos').doc(props.match.params.id).get().then(async (res) => {
+      setEvento(res.data())
+
+      console.log(evento)
+      await firebase.storage().ref(`imagens/${evento.foto}`).getDownloadURL().then(url => setUrlImg(url))
+    })
+  }, [evento.foto, props.match.params.id])
+
   return (
     <>
       <NavBar></NavBar>
       <h1>Detalhes do Evento</h1>
       <div className="container-fluid">
         <div className="row">
-          <img src="https://via.placeholder.com/150" alt="Banner" className="img-banner"></img>
+          <img src={urlImg} alt="Banner" className="img-banner"></img>
         </div>
+        <div className="col-12 text-right mt-1 visualizacoes">
+          <i className="fas fa-eye mr-2"></i><span>{evento.visualizacoes}</span>
+        </div>
+        <h3 className="mx-auto mt-5 titulo"><strong>{evento.titulo}</strong></h3>
         <div className="row mt-5 d-flex justify-content-around">
           <div className="col-md-3 col-sm-12 box-info p-3 my-2">
             {/* ICONES */}
             <i className="fas fa-ticket-alt fa-2x"></i>
             <h5><strong>Tipo</strong></h5>
-            <span className="mt-3">Festa</span>
+            <span className="mt-3">{evento.tipo}</span>
           </div>
           <div className="col-md-3 col-sm-12 box-info p-3 my-2">
             {/* ICONES */}
             <i className="fas fa-calendar-alt alt fa-2x"></i>
             <h5><strong>Data</strong></h5>
-            <span className="mt-3">10/10/2019</span>
+            <span className="mt-3">{evento.data}</span>
           </div>
           <div className="col-md-3 col-sm-12 box-info p-3 my-2">
             {/* ICONES */}
             <i className="fas fa-clock fa-2x"></i>
             <h5><strong>Hora</strong></h5>
-            <span className="mt-3">19:00</span>
+            <span className="mt-3">{evento.hora}</span>
           </div>
         </div>
         <div className="row box-detalhes mt-5">
-          <h5 className="mx-auto"><strong>Detalhes do Evento</strong></h5>
-          <p className="text-justify p-3">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <div className="col-12 text-center">
+            <h5><strong>Detalhes do Evento</strong></h5>
+          </div>
+          <div className="col-12 text-center">
+            <p>{evento.detalhes}</p>
+          </div>
         </div>
 
-        <Link to="" className="btn-editar"><i className="fas fa-pen-square fa-3x"></i></Link>
-
-
+        {
+          //O usuário que está logado é o mesmo que publicou esse evento?
+          //Se for igual é por que ele pode editar, se não mostra vázio
+          usuarioLogado === evento.usuario ?
+            <Link to="" className="btn-editar"><i className="fas fa-pen-square fa-3x"></i></Link>
+            : ''
+        }
       </div>
 
 
