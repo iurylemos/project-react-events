@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './detalhes-evento.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import NavBar from '../../components/navbar';
 import firebase from '../../config/firebase';
 import { useSelector } from 'react-redux';
@@ -11,9 +11,19 @@ function DetalhesEvento(props) {
   const [evento, setEvento] = useState({});
   const [urlImg, setUrlImg] = useState();
   const [carregando, setCarregando] = useState(1);
+  const [excluir, setExcluir] = useState(0);
   const usuarioLogado = useSelector(state => state.usuarioEmail);
 
-  console.log(usuarioLogado)
+  // console.log(usuarioLogado)
+
+  function removerEvento() {
+    firebase.firestore().collection('eventos').doc(props.match.params.id).delete().then(() => {
+      setExcluir(1);
+    })
+  }
+
+
+
 
   //Vou utilizar o userEffect para toda as vezes que carregar essa página, 
   //ele ir lá no firebase
@@ -55,6 +65,14 @@ function DetalhesEvento(props) {
   return (
     <>
       <NavBar></NavBar>
+
+      {/* Se o excluir for maior que 0, ou seja se a pessoa
+      Excluiu o evento, ele vai ser redirecionado para a HOME */}
+
+      {
+        excluir > 0 ? <Redirect to="/"></Redirect> : null
+      }
+
       <h1>Detalhes do Evento</h1>
       <div className="container-fluid">
 
@@ -109,10 +127,17 @@ function DetalhesEvento(props) {
                 //Se for igual é por que ele pode editar, se não mostra vázio
                 usuarioLogado === evento.usuario ?
                   <Link to={`/editar-evento/${props.match.params.id}`} className="btn-editar"><i className="fas fa-pen-square fa-3x"></i></Link>
+
                   : ''
               }
-            </div>
 
+              {
+                usuarioLogado === evento.usuario ?
+                  <button onClick={removerEvento} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro">Remover Evento</button>
+                  : null
+              }
+
+            </div>
         }
 
       </div>

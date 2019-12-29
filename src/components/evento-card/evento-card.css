@@ -16,6 +16,7 @@
 /* //Overflow hidden bota as coisas no seu devido lugar */
 .card-text {
   max-height: 100px;
+  min-height: 100px;
   overflow: hidden;
 }
 
